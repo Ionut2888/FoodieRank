@@ -1,0 +1,83 @@
+<div class="login-container">
+  <div class="login-form">
+    <div class="login-header">
+      <h2>Welcome Back</h2>
+      <p class="subtitle">Sign in to your FoodieRank account</p>
+    </div>
+    
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <div class="input-wrapper">
+          <input 
+            type="email" 
+            id="email" 
+            formControlName="email"
+            placeholder="Enter your email"
+            [class.error]="isFieldInvalid('email')"
+            autocomplete="email"
+          >
+          <i class="input-icon email-icon">📧</i>
+        </div>
+        <div class="error-message" *ngIf="isFieldInvalid('email')">
+          {{ getFieldError('email') }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <div class="input-wrapper">
+          <input 
+            [type]="showPassword ? 'text' : 'password'"
+            id="password" 
+            formControlName="password"
+            placeholder="Enter your password"
+            [class.error]="isFieldInvalid('password')"
+            autocomplete="current-password"
+          >
+          <button 
+            type="button" 
+            class="password-toggle"
+            (click)="togglePasswordVisibility()"
+            [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'"
+          >
+            <i>{{ showPassword ? '🙈' : '👁️' }}</i>
+          </button>
+        </div>
+        <div class="error-message" *ngIf="isFieldInvalid('password')">
+          {{ getFieldError('password') }}
+        </div>
+      </div>
+
+      <button 
+        type="submit" 
+        [disabled]="loginForm.invalid || isLoading"
+        class="submit-btn"
+      >
+        <span *ngIf="!isLoading">Sign In</span>
+        <span *ngIf="isLoading" class="loading">
+          <span class="spinner"></span>
+          Signing In...
+        </span>
+      </button>
+    </form>
+
+    <div class="error-message server-error" *ngIf="errorMessage">
+      <i class="error-icon">⚠️</i>
+      {{ errorMessage }}
+    </div>
+
+    <div class="login-footer">
+      <div class="divider">
+        <span>Don't have an account?</span>
+      </div>
+      <a routerLink="/register" class="register-link">
+        Create Account
+      </a>
+      
+      <div class="forgot-password">
+        <a routerLink="/forgot-password" class="link">Forgot your password?</a>
+      </div>
+    </div>
+  </div>
+</div>

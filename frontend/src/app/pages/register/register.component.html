@@ -1,0 +1,77 @@
+<div class="register-container">
+  <div class="register-form">
+    <h2>Create Your Account</h2>
+    <p class="subtitle">Join FoodieRank and discover amazing restaurants</p>
+    
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input 
+          type="email" 
+          id="email" 
+          formControlName="email"
+          placeholder="Enter your email"
+          [class.error]="isFieldInvalid('email')"
+        >
+        <div class="error-message" *ngIf="isFieldInvalid('email')">
+          {{ getFieldError('email') }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input 
+          type="password" 
+          id="password" 
+          formControlName="password"
+          placeholder="Create a password"
+          [class.error]="isFieldInvalid('password')"
+        >
+        <div class="error-message" *ngIf="isFieldInvalid('password')">
+          {{ getFieldError('password') }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <input 
+          type="password" 
+          id="confirmPassword" 
+          formControlName="confirmPassword"
+          placeholder="Confirm your password"
+          [class.error]="isFieldInvalid('confirmPassword')"
+        >
+        <div class="error-message" *ngIf="isFieldInvalid('confirmPassword')">
+          {{ getFieldError('confirmPassword') }}
+        </div>
+      </div>
+
+      <button 
+        type="submit" 
+        [disabled]="registerForm.invalid || isLoading"
+        class="submit-btn"
+      >
+        <span *ngIf="!isLoading">Create Account</span>
+        <span *ngIf="isLoading" class="loading">
+          <span class="spinner"></span>
+          Creating Account...
+        </span>
+      </button>
+    </form>
+
+    <div class="success-message" *ngIf="successMessage">
+      <i class="success-icon">✓</i>
+      {{ successMessage }}
+    </div>
+
+    <div class="error-message" *ngIf="errorMessage">
+      <i class="error-icon">⚠</i>
+      {{ errorMessage }}
+    </div>
+
+    <div class="login-link">
+      Already have an account? 
+      <a href="/login" class="link">Sign in here</a>
+    </div>
+  </div>
+</div>
